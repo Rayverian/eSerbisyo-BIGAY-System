@@ -14,15 +14,83 @@ document.getElementById("dashboard").addEventListener("click", () => {
   window.location.href = "admin-login.html";
 });
 
-
 const form      = document.getElementById('complainForm');
 const submitBtn = document.getElementById('submitBtn');
 const statusMsg = document.getElementById('formStatus');
+const dateInput = document.getElementById('date');
+const fileInput = document.getElementById('photo');
+
+// Compute local YYYY-MM-DD to avoid UTC timezone off-by-one shifts
+const now = new Date();
+const localToday = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+  .toISOString()
+  .split('T')[0];
+const currentYear = now.getFullYear();
+const minYear = currentYear - 5;
+
+dateInput.min = `${minYear}-01-01`;
+dateInput.max = localToday;
 
 function showMessage(text, isError = false) {
   statusMsg.textContent = text;
   statusMsg.style.color = isError ? '#ff6b6b' : '#0c1d4f';
 }
+
+function validateIncidentDate(dateStr) {
+  if (!dateStr) {
+    return 'Please select the date of the incident.';
+  }
+
+  // Verify strict 4-digit year format (YYYY-MM-DD)
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateStr);
+  if (!match) {
+    return 'Please enter a complete, valid date.';
+  }
+
+  const year = parseInt(match[1], 10);
+
+  // Reject incomplete years like 0002 or 0236
+  if (year < minYear || year > currentYear) {
+    return `Please enter a complete 4-digit year between ${minYear} and ${currentYear}.`;
+  }
+
+  // Reject dates after today
+  if (dateStr > localToday) {
+    return 'Date of incident cannot be in the future.';
+  }
+
+  return null;
+}
+
+function validateFile(file) {
+  if (!file) return null; // Optional field
+
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf'];
+  const maxBytes = 5 * 1024 * 1024; // 5MB
+
+  if (!allowedTypes.includes(file.type)) {
+    return 'Invalid file type. Only JPG, PNG, WEBP, or PDF files are allowed.';
+  }
+  if (file.size === 0) {
+    return 'The selected file is empty.';
+  }
+  if (file.size > maxBytes) {
+    return 'File must be 5MB or smaller.';
+  }
+
+  return null;
+}
+
+// Validate immediately when a file is chosen
+fileInput.addEventListener('change', () => {
+  const fileError = validateFile(fileInput.files[0]);
+  if (fileError) {
+    showMessage(fileError, true);
+    fileInput.value = '';
+  } else {
+    showMessage('');
+  }
+});
 
 async function uploadFile(file) {
   const ext  = (file.name.split('.').pop() || 'jpg').toLowerCase();
@@ -38,9 +106,19 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
   showMessage('');
 
-  const file = document.getElementById('photo').files[0];
-  if (file && file.size > 5 * 1024 * 1024) {
-    return showMessage('File must be 5MB or smaller.', true);
+  // 1. Validate Date & Year
+  const dateError = validateIncidentDate(dateInput.value);
+  if (dateError) {
+    dateInput.focus();
+    return showMessage(dateError, true);
+  }
+
+  // 2. Validate File
+  const file = fileInput.files[0];
+  const fileError = validateFile(file);
+  if (fileError) {
+    fileInput.focus();
+    return showMessage(fileError, true);
   }
 
   submitBtn.disabled = true;
@@ -54,7 +132,7 @@ form.addEventListener('submit', async (e) => {
       sitio:                          document.getElementById('sitio').value,
       specific_landmark_address:      document.getElementById('landmark').value.trim(),
       email:                          document.getElementById('email').value.trim() || null,
-      date_of_incident:               document.getElementById('date').value,
+      date_of_incident:               dateInput.value,
       approximate_time:               document.getElementById('time').value || null,
       incident_narrative_description: document.getElementById('descriptions').value.trim(),
       photo_evidence:                 fileUrl
