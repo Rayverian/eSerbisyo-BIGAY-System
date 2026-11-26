@@ -19,20 +19,6 @@ const form      = document.getElementById('complainForm');
 const submitBtn = document.getElementById('submitBtn');
 const statusMsg = document.getElementById('formStatus');
 
-// ----- date validation setup (new) -----
-const dateInput = document.getElementById('date');
-
-function todayLocal() {
-  const d = new Date();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return ${d.getFullYear()}-${m}-${day};
-}
-
-dateInput.min = '2000-01-01';
-dateInput.max = todayLocal();
-// ---------------------------------------
-
 function showMessage(text, isError = false) {
   statusMsg.textContent = text;
   statusMsg.style.color = isError ? '#ff6b6b' : '#0c1d4f';
@@ -40,7 +26,7 @@ function showMessage(text, isError = false) {
 
 async function uploadFile(file) {
   const ext  = (file.name.split('.').pop() || 'jpg').toLowerCase();
-  const path = ${crypto.randomUUID()}.${ext};
+  const path = `${crypto.randomUUID()}.${ext}`;
   const { error } = await db.storage
     .from('complaint-photos')
     .upload(path, file, { contentType: file.type });
@@ -51,18 +37,6 @@ async function uploadFile(file) {
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
   showMessage('');
-
-  // ----- date check (new) -----
-  const dateValue = dateInput.value;
-  const year = parseInt(dateValue.split('-')[0], 10);
-
-  if (!dateValue || isNaN(Date.parse(dateValue)) || year < 2000 || String(year).length !== 4) {
-    return showMessage('Please enter a valid date of incident.', true);
-  }
-  if (dateValue > todayLocal()) {
-    return showMessage('Date of incident cannot be in the future.', true);
-  }
-  // ----------------------------
 
   const file = document.getElementById('photo').files[0];
   if (file && file.size > 5 * 1024 * 1024) {
