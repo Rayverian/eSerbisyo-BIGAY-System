@@ -1,16 +1,17 @@
-document.getElementById("request").addEventListener("click", () => {
+// Navigation buttons (using optional chaining so it won't crash if run on other pages)
+document.getElementById("request")?.addEventListener("click", () => {
   window.location.href = "docreq.html";
 });
 
-document.getElementById("services").addEventListener("click", () => {
+document.getElementById("services")?.addEventListener("click", () => {
   window.location.href = "services.html";
 });
 
-document.getElementById("home").addEventListener("click", () => {
+document.getElementById("home")?.addEventListener("click", () => {
   window.location.href = "home.html";
 });
 
-document.getElementById("dashboard").addEventListener("click", () => {
+document.getElementById("dashboard")?.addEventListener("click", () => {
   window.location.href = "admin-login.html";
 });
 
@@ -19,6 +20,21 @@ const submitBtn = document.getElementById('submitBtn');
 const statusMsg = document.getElementById('formStatus');
 const dateInput = document.getElementById('date');
 const fileInput = document.getElementById('photo');
+
+// ----- "Others" incident category -----
+const categorySelect = document.getElementById('status');
+const otherGroup     = document.getElementById('otherIncidentGroup');
+const otherInput     = document.getElementById('otherIncident');
+
+function toggleOtherIncident() {
+  const isOther = categorySelect.value === 'Others';
+  otherGroup.hidden = !isOther;
+  otherInput.required = isOther;
+  if (!isOther) otherInput.value = '';
+}
+
+categorySelect.addEventListener('change', toggleOtherIncident);
+// --------------------------------------
 
 // Compute local YYYY-MM-DD to avoid UTC timezone off-by-one shifts
 const now = new Date();
@@ -92,9 +108,17 @@ fileInput.addEventListener('change', () => {
   }
 });
 
+// Fallback ID generator if crypto.randomUUID() is unavailable on plain HTTP
+function generateUniqueId() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+}
+
 async function uploadFile(file) {
   const ext  = (file.name.split('.').pop() || 'jpg').toLowerCase();
-  const path = `${crypto.randomUUID()}.${ext}`;
+  const path = `${generateUniqueId()}.${ext}`;
   const { error } = await db.storage
     .from('complaint-photos')
     .upload(path, file, { contentType: file.type });
@@ -121,6 +145,17 @@ form.addEventListener('submit', async (e) => {
     return showMessage(fileError, true);
   }
 
+  // 3. Resolve incident category (include the typed text when "Others")
+  let incidentCategory = categorySelect.value;
+  if (incidentCategory === 'Others') {
+    const otherText = otherInput.value.trim();
+    if (!otherText) {
+      otherInput.focus();
+      return showMessage('Please specify the other incident.', true);
+    }
+    incidentCategory = `Others: ${otherText}`;
+  }
+
   submitBtn.disabled = true;
   submitBtn.textContent = 'SUBMITTING...';
 
@@ -128,7 +163,7 @@ form.addEventListener('submit', async (e) => {
     const fileUrl = file ? await uploadFile(file) : null;
 
     const { error } = await db.from('complaints').insert({
-      incident_category:              document.getElementById('status').value,
+      incident_category:              incidentCategory,
       sitio:                          document.getElementById('sitio').value,
       specific_landmark_address:      document.getElementById('landmark').value.trim(),
       email:                          document.getElementById('email').value.trim() || null,
@@ -140,6 +175,7 @@ form.addEventListener('submit', async (e) => {
     if (error) throw error;
 
     form.reset();
+    toggleOtherIncident();
     showMessage('Your report was submitted. Thank you!');
   } catch (err) {
     console.error(err);
