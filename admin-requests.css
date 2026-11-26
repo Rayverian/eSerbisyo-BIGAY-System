@@ -1,0 +1,370 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #EEF5FC;
+    color: #0A1128;
+    font-family: Arial, sans-serif;
+    
+}
+
+/* ---------- navigation ---------- */
+.navigation {
+    background-color: #0A1128;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    border-bottom: 1px solid #001F54;
+}
+
+.logo {
+    font-size: 22px;
+    color: #FEFCFB;
+}
+
+.logo span {
+    color: #87BFFF;
+}
+
+.links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.links a {
+    color: #FEFCFB;
+    text-decoration: none;
+    font-size: clamp(12px, 1.5vw, 18px);
+}
+
+.links a:hover {
+    color: #87BFFF;
+}
+
+.links a.active {
+    color: #87BFFF;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+}
+
+#logoutBtn {
+    background: none;
+    border: 1px solid #87BFFF;
+    color: #87BFFF;
+    padding: 3px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: clamp(12px, 1.5vw, 18px);
+}
+
+#logoutBtn:hover {
+    background-color: #960200;
+    border-color: #960200;
+    color: #FEFCFB;
+}
+
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 85px;
+  }
+
+  .navigation {
+    justify-content: center;
+    padding: 14px;
+  }
+
+  .links {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 530px;
+    background: rgba(10, 17, 40, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(135, 191, 255, 0.35);
+    border-radius: 50px;
+    justify-content: space-evenly;
+    padding: 10px 12px;
+    gap: 4px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+    font-size: 5px;
+  } 
+}
+
+/* ---------- page ---------- */
+.page {
+    padding: clamp(16px, 4vw, 30px) clamp(16px, 4vw, 40px);
+    min-width: 0;
+}
+
+.page h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #0A1128;
+}
+
+/* ---------- filter buttons ---------- */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    
+}
+
+.filters button,
+.range-buttons button {
+    background-color: #FEFCFB;
+    border: 1px solid #ADD7F6;
+    color: #0A1128;
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: clamp(12px, 1.5vw, 14px);
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.filters button.active,
+.range-buttons button.active {
+    background-color: #960200;
+    border-color: #960200;
+    color: #FEFCFB;
+}
+
+/* ---------- table ---------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FEFCFB;
+    border: 1px solid #ADD7F6;
+    
+    
+}
+
+
+#action {
+    text-align: center;
+}
+
+th {
+    text-align: left;
+    color: #0A1128;
+    font-size: 14px;
+    padding: 12px;
+    border-bottom: 1px solid #ADD7F6;
+    background-color: #DCEBFA;
+}
+
+
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #EEF5FC;
+    font-size: 14px;
+    color: #0A1128;
+    
+}
+
+td small {
+    color: #034078;
+}
+
+tr:hover td {
+    background-color: #EEF5FC;
+}
+
+/* ---------- status badges ---------- */
+.badge {
+    padding: 4px 6px; 
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 13px;
+    display: inline-block; 
+}
+
+.status-Pending {
+    background-color: #DCEBFA;
+    color: #034078;
+}
+
+.status-Confirmed {
+    background-color: #87BFFF;
+    color: #0A1128;
+    text-align: center;
+}
+
+.status-Ready-for-Claiming {
+    background-color: #2667FF;
+    color: #FEFCFB;
+    text-align: center;
+}
+
+.status-Completed,
+.status-Done {
+    background-color: #0A1128;
+    color: #FEFCFB;
+    text-align: center;
+}
+
+.status-Rejected {
+    background-color: #960200;
+    color: #FEFCFB;
+}
+
+/* ---------- buttons ---------- */
+.btn {
+    background-color: #EEF5FC;
+    border: 1px solid #ADD7F6;
+    color: #0A1128;
+    padding: 7px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: block;
+    margin-inline: auto;
+
+}
+
+.btn:hover {
+    border-color: #2667FF;
+}
+
+.btn-orange {
+    background-color: #2667FF;
+    border-color: #2667FF;
+    color: #FEFCFB;
+}
+
+.btn-orange:hover {
+    background-color: #001F54;
+    border-color: #001F54;
+}
+
+.btn-red {
+    border-color: #960200;
+    color: #960200;
+}
+
+.btn-red:hover {
+    background-color: #960200;
+    color: #FEFCFB;
+}
+
+/* ---------- detail box ---------- */
+.detail-box {
+    background-color: #FEFCFB;
+    border: 1px solid #ADD7F6;
+    border-bottom: 3px solid #960200;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.detail-box h2 {
+    margin-bottom: 15px;
+    color: #0A1128;
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.detail-grid p {
+    color: #034078;
+    font-size: 12px;
+}
+
+.detail-grid span {
+    display: block;
+    color: #0A1128;
+    font-size: 15px;
+    margin-top: 3px;
+}
+
+.button-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .badge {
+        display: inline-block;
+        white-space: auto;
+        max-width: 100px;
+        font-size: clamp(15px, 1vw, 19px);
+    }
+
+    .filters {
+        object-fit: fill;
+    }
+
+    .detail-box {
+        padding: clamp(14px, 4vw, 20px);
+    }
+
+    .detail-box h2 {
+        font-size: clamp(20px, 5vw, 25px);
+    }
+}
+
+.table-scroll {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.table-scroll table {
+    width: 100%;
+    min-width: 0; 
+    table-layout: fixed;
+}
+
+.table-scroll th,
+.table-scroll td {
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+@media (max-width: 480px) {
+    .btn {
+        padding: 6px 10px;
+        font-size: 13px;
+    }
+
+    .table-scroll th,
+    .table-scroll td {
+        padding: 5px 3px;
+        font-size: 10px;
+    }
+
+    .table-scroll .btn {
+        padding: 4px;
+        font-size: 10px;
+    }
+
+    .badge {
+        display: inline-block;
+        white-space: normal;
+        width: 70px;
+        font-size: clamp(10px, 1vw, 14px);
+    }
+}

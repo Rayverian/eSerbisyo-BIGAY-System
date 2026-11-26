@@ -1,0 +1,239 @@
+/* BASE STYLES */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* BODY */
+body.main {
+    background-color: #EEF5FC;
+    color: #0A1128;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0;
+}
+
+/* NAVIGATION */
+.navigation{
+  background-color: #0A1128;
+  min-height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px clamp(20px, 5vw, 60px);
+  border-bottom: 1px solid;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.logo {
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #FEFCFB;
+    white-space: nowrap;
+    padding-left: 25px;
+}
+
+.logo span {
+    color: #87BFFF;
+}
+
+.buttons{
+    display:flex;
+    gap: clamp(16px, 2.5vw, 32px);
+    align-items: center;
+}
+
+.orange,
+.blue,
+#home,
+#complain,
+#request,
+#services,
+#dashboard {
+  background: none;
+  border: none;
+  font-family: 'Jockey One', sans-serif;
+  font-size: clamp(10px, 1.8vw, 15px);
+  letter-spacing: 0.8px;
+  padding: 6px 4px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.orange,
+#dashboard {
+  color: #87BFFF;
+}
+
+.orange::after,
+#dashboard::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2.5px;
+  background-color: #87BFFF;
+  border-radius: 2px;
+}
+
+.blue,
+#home,
+#request,
+#services,
+#complain {
+  color: rgba(254, 252, 251, 0.85);
+}
+
+.blue:hover,
+#home:hover,
+#request:hover,
+#services:hover,
+#dashboard:hover {
+  color: #87BFFF;
+}
+
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 85px;
+  }
+
+  .navigation {
+    justify-content: center;
+    padding: 14px;
+
+  }
+
+  .buttons {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 530px;
+    background: rgba(10, 17, 40, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(135, 191, 255, 0.35);
+    border-radius: 50px;
+    justify-content: space-evenly;
+    padding: 10px 12px;
+    gap: 4px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+  }
+
+  .buttons button {
+    font-size: 14px;
+    padding: 4px 6px;
+  }
+
+  
+}
+
+
+
+/* CONTAINER for login */
+.login-container {
+    background-color: #ADD7F6;
+    border: 1px solid #87BFFF;
+    border-radius: 12px;
+    padding: 40px 32px;
+    max-width: 50%;
+    margin: clamp(40px, 10vh, 100px) auto;
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        max-width: 90%;
+        margin: 40px auto;
+        padding: 24px 18px;
+    }
+}
+
+
+/* LOGIN HEADING */
+.login-container h1 {
+    color: #001F54;
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* FORM */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* LABELS */
+label {
+    color: #001F54;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+/* INPUT FIELDS */
+input[type="email"],
+input[type="password"] {
+    background-color: #EEF5FC;
+    border: 1px solid #ADD7F6;
+    border-radius: 6px;
+    color: #0A1128;
+    font-size: 1rem;
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* INPUT FOCUS */
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #2667FF;
+    box-shadow: 0 0 0 3px rgba(38, 103, 255, 0.2);
+}
+
+/* ERROR MESSAGE */
+#errorMsg {
+    color: #960200;
+    font-size: 1rem;
+    min-height: 20px;
+    margin-bottom: 8px;
+}
+
+/* LOGIN BUTTON */
+button[type="submit"] {
+    background-color: #960200;
+    color: #FEFCFB;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px;
+    margin-top: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #123772;
+}
+
+button[type="submit"]:active {
+    transform: scale(0.99);
+}
+
+button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+

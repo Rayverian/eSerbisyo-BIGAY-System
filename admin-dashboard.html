@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Dashboard</title>
+    <link rel="stylesheet" href="admin-dashboard.css">
+</head>
+
+<body style="display:none">
+
+   <div class="navigation">
+        <h2 class="logo">eSerbisyo <span>BIGAY</span> Admin</h2>
+        <div class="links">
+            <a href="admin-dashboard.html"class="active">DASHBOARD</a>
+            <a href="admin-requests.html">REQUESTS</a>
+            <a href="admin-complaints.html">COMPLAINTS</a>
+            <button id="logoutBtn">LOGOUT</button>
+        </div>
+    </div>
+
+    <div class="page">
+        <h1>Overview</h1>
+
+        <div class="range-buttons" id="rangeButtons">
+            <button data-range="7" class="active">Last 7 days</button>
+            <button data-range="30">Last 30 days</button>
+            <button data-range="3650">All time</button>
+        </div>
+
+        <div class="cards">
+            <div class="card"><p>Total Requests</p><h2 id="totalRequests">0</h2></div>
+            <div class="card"><p>Pending Requests</p><h2 id="pendingRequests">0</h2></div>
+            <div class="card"><p>Open Complaints</p><h2 id="openComplaints">0</h2></div>
+            <div class="card"><p>Completed Requests</p><h2 id="completedRequests">0</h2></div>
+        </div>
+
+        <div class="two-columns">
+            <div class="box">
+                <h3>Requests by Document</h3>
+                <div id="docBars"></div>
+            </div>
+            <div class="box">
+                <h3>Complaints by Status</h3>
+                <div id="complaintBars"></div>
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>Recent Activity</h3>
+            <div id="activityList"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+    <script src="admin-common.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #EEF5FC;
+    color: #0A1128;
+    font-family: Arial, sans-serif;
+}
+
+/* ---------- navigation ---------- */
+.navigation {
+    background-color: #0A1128;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    border-bottom: 1px solid #001F54;
+}
+
+.logo {
+    font-size: 22px;
+    color: #FEFCFB;
+}
+
+.logo span {
+    color: #87BFFF;
+}
+
+.links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.links a {
+    color: #FEFCFB;
+    text-decoration: none;
+    font-size: clamp(12px, 1.5vw, 18px);
+}
+
+.links a:hover {
+    color: #87BFFF;
+}
+
+.links a.active {
+    color: #87BFFF;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+}
+
+#logoutBtn {
+    background: none;
+    border: 1px solid #87BFFF;
+    color: #87BFFF;
+    padding: 3px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: clamp(12px, 1.5vw, 18px);
+}
+
+#logoutBtn:hover {
+    background-color: #960200;
+    border-color: #960200;
+    color: #FEFCFB;
+}
+
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 85px;
+  }
+
+  .navigation {
+    justify-content: center;
+    padding: 14px;
+  }
+
+  .links {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 530px;
+    background: rgba(10, 17, 40, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(135, 191, 255, 0.35);
+    border-radius: 50px;
+    justify-content: space-evenly;
+    padding: 10px 12px;
+    gap: 4px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+    font-size: 5px;
+  } 
+}
+
+/* ---------- page ---------- */
+.page {
+    padding: clamp(16px, 4vw, 30px);
+}
+
+.page h1 {
+    font-size: clamp(22px, 3vw, 28px);
+    margin-bottom: 10px;
+    color: #001F54;
+}
+
+/* ---------- cards (dashboard) ---------- */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card {
+    background-color: #fefcfb;
+    border: 1px solid #3f8efc;
+    border-bottom: 4px solid #960200;
+    border-radius: 10px;
+    padding: 18px;
+}
+
+.card p {
+    color: #034078;
+    font-size: 14px;
+}
+
+.card h2 {
+    font-size: clamp(26px, 4vw, 32px);
+    margin-top: 5px;
+    color: #001F54;
+}
+
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.box {
+    background-color: #FEFCFB;
+    border: 1px solid #ADD7F6;
+    border-radius: 10px;
+    padding: 18px;
+}
+
+.box h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #001F54;
+}
+
+/* bars */
+.bar-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 30px;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: #0A1128;
+}
+
+.bar-track {
+    background-color: #DCEBFA;
+    height: 10px;
+    border-radius: 5px;
+}
+
+.bar-fill {
+    background-color: #3f8efc;
+    height: 10px;
+    border-radius: 5px;
+}
+
+.activity-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #DCEBFA;
+    font-size: 14px;
+    color: #0A1128;
+}
+
+.activity-item small {
+    display: block;
+    color: #034078;
+    margin-top: 3px;
+}
+
+.empty {
+    font-size: 14px;
+    color: #034078;
+}
+
+.range-buttons {
+    margin-bottom: 20px;
+}
+
+/* ---------- filter buttons ---------- */
+.range-buttons button {
+    background-color: #FEFCFB;
+    border: 1px solid #ADD7F6;
+    color: #001F54;
+    padding: 6px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: clamp(10px, 3vw, 14px);
+}
+
+.range-buttons button.active {
+    background-color: #960200;
+    border-color: #2667FF;
+    color: #FEFCFB;
+}
+
+@media (max-width: 768px) {
+    .page {
+        padding: 20px;
+    }
+    .navigation {
+        padding: 0 15px;
+    }
+    .cards,
+    .two-columns {
+        grid-template-columns: 1fr;
+    }
+    .bar-row {
+        grid-template-columns: 110px 1fr 30px;
+    }
+
+    
+}

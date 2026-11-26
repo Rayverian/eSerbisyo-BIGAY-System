@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Document Requests</title>
+    <link rel="stylesheet" href="admin-requests.css">
+</head>
+
+<body style="display:none">
+
+    <div class="navigation">
+        <h2 class="logo">eSerbisyo <span>BIGAY</span> Admin</h2>
+        <div class="links">
+            <a href="admin-dashboard.html">DASHBOARD</a>
+            <a href="admin-requests.html" class="active">REQUESTS</a>
+            <a href="admin-complaints.html">COMPLAINTS</a>
+            <button id="logoutBtn">LOGOUT</button>
+        </div>
+    </div>
+
+    <div class="page">
+        <h1>Document Requests</h1>
+
+        <div class="filters" id="filters">
+            <button data-status="All" class="active">All</button>
+            <button data-status="Pending">Pending</button>
+            <button data-status="Confirmed">Confirmed</button>
+            <button data-status="Ready for Claiming">Ready for Claiming</button>
+            <button data-status="Completed">Completed</button>
+            <button data-status="Rejected">Rejected</button>
+        </div>
+
+        <div class="table-scroll">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Document</th>
+                        <th>Claiming Date</th>
+                        <th>Status</th>
+                        <th id="action">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="requestRows"></tbody>
+            </table>
+        </div>
+
+        <div class="detail-box" id="detailBox" style="display:none"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+    <script src="admin-common.js"></script>
+    <script src="admin-requests.js"></script>
+</body>
+</html>

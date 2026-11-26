@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complain Portal</title>
+    <link rel="stylesheet" href="complaint.css">
+</head>
+
+<body>
+    
+
+        <div class="navigation">
+  <h2 class="logo">eSerbisyo <span>BIGAY</span> System</h2>
+                <div class="buttons">
+                    <button id="home">HOME</button>
+                    <button id="complain">COMPLAIN</button>
+                    <button id="request">REQUEST</button>
+                    <button id="services">SERVICES</button>
+                    <button id="dashboard">DASHBOARD</button>
+                </div>
+        </div>
+    </div>
+        
+
+<div class="mainbg">
+    <div class="top-main">
+        
+     <div class="group1">
+        <div class="group1-hotline">
+            <a href="#hotline" class="emergency">Emergency Hotlines: </a>
+            <p class="light">Barangay Desk: </p>
+            <p class="highlight">(043) 123-456</p>
+            <p class="light">24/7 Desk Patrol</p>
+            <hr>
+        </div> 
+    
+        <div class="brgy-rprt">
+            <img src="images/report-icon.jpg" alt="Report Icon" id="rprt-img">
+            <p>Barangay Complaint Portal</p>
+        </div>
+                    <p id="description">Welcome to the official <b>Barangay Complaint Portal</b>, designed to give every resident a direct voice in maintaining our neighborhood.
+                        This platform streamlines communication between the public and local authority, ensuring that community issues are handled efficiently and transparently.
+                        Together, we can address local concerns faster and work toward a safer, cleaner, and more unified barangay.</p>
+        </div>
+    </div>
+</div>
+
+        <h3>File a Complaint</h3>
+        <p class="file-cmpln">Official formal complaint regarding an unresolved service issue and request for immediate resolution.
+            <br>Submit community concerns directly to Barangay.</p><br>
+         
+            <div class="FJform">
+            <form class="complaint-info" id="complainForm">
+    <fieldset>
+        <h4>Incident Details</h4><br><hr><br>
+
+        <div class="form-row">
+    
+            <div class="form-group">
+                <label for="status">INCIDENT CATEGORY</label>
+                <select id="status" required>
+                    <option value="" disabled selected>Select Incident</option>
+                    <option value="Noise Disturbance (Karaoke, Loud Music)">Noise Disturbance (Karaoke, Loud Music)</option>
+                    <option value="Waste/Improper Garbage Dumping">Waste/Improper Garbage Dumping</option>
+                    <option value="Barangay Blotter/Neighbor Dispute">Barangay Blotter/Neighbor Dispute</option>
+                    <option value="Public Safety &amp; Streetlight Issue">Public Safety &amp; Streetlight Issue</option>
+                    <option value="Road/Sidewalk Obstruction">Road/Sidewalk Obstruction</option>
+                    <option value="Utility Failure (Water, Power)">Utility Failure (Water, Power)</option>
+                    <option value="Others">Others</option>
+                 </select>
+            </div>
+            <div class="form-group">
+                <label for="sitio">SITIO</label>
+                <select id="sitio" required>
+                    <option value="" disabled selected>Select Sitio</option>
+                    <option value="Silangan 1">Silangan 1</option>
+                    <option value="Silangan 2">Silangan 2</option>
+                    <option value="Hulong Silangan">Hulong Silangan</option>
+                    <option value="Hulong Bayanan">Hulong Bayanan</option>
+                    <option value="Bayanan">Bayanan</option>
+                    <option value="Lilinggiwan">Lilinggiwan</option>
+                    <option value="Lilinggiwan 2">Lilinggiwan 2</option>
+                </select>
+            </div>
+        </div>
+ 
+            <div class="form-group">
+                <label for="landmark">SPECIFIC LANDMARK/ADDRESS</label>
+                <input type="text" id="landmark" placeholder="e.g Near Chapel,Cornerhouse" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">EMAIL ADDRESS (OPTIONAL)</label>
+                <input type="email" id="email" placeholder="e.g juandelacruz@gmail.com">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date">DATE OF INCIDENT</label><br>
+                    <input type="date" id="date" required>
+                </div>
+            
+            <div class="form-group">
+                <label for="time">APPROXIMATE TIME</label><br>
+                <input type="time" id="time" required>
+            </div>
+            </div>
+            <div class="form-group">
+                <label for="descriptions">INCIDENT NARRATIVE DESCRIPTION</label>
+                <textarea id="descriptions" placeholder="Enter the Description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="photo">ATTACH PHOTO EVIDENCE/FILES(OPTIONAL)</label>
+                <input type="file" id="photo">
+            </div>
+
+            <p id="formStatus"></p>
+            <button class="btn-submit" id="submitBtn" type="submit">SUBMIT</button>
+
+    </fieldset>
+</form>
+</div>
+
+    <div id="hotline" class="group-hotline">
+        <p class="emergency1">EMERGENCY HOTLINES/NUMBERS:</p>
+
+        <div class="hotline-row">
+            <span class="light1">Barangay Tanod</span>
+            <a class="highlight1" href="tel:+6343987654">(043) 987-654</a>
+        </div>
+
+        <div class="hotline-row">
+            <span class="light1">Barangay Health Center</span>
+            <a class="highlight1" href="tel:09987654321">09987654321</a>
+        </div>
+
+        <div class="hotline-row">
+            <span class="light1">Ambulance</span>
+            <a class="highlight1" href="tel:094567766219">094567766219</a>
+        </div>
+    </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-client.js"></script>
+<script src="complaint.js"></script>
+</body>
+</html>

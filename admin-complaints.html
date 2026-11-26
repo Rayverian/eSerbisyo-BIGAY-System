@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Complaints</title>
+    <link rel="stylesheet" href="admin-complaints.css">
+</head>
+
+<body style="display:none">
+
+   <div class="navigation">
+        <h2 class="logo">eSerbisyo <span>BIGAY</span> Admin</h2>
+        <div class="links">
+            <a href="admin-dashboard.html">DASHBOARD</a>
+            <a href="admin-requests.html">REQUESTS</a>
+            <a href="admin-complaints.html"class="active">COMPLAINTS</a>
+            <button id="logoutBtn">LOGOUT</button>
+        </div>
+    </div>
+
+    <div class="page">
+        <h1>Complaints</h1>
+
+        <div class="filters" id="filters">
+            <button data-status="All" class="active">All</button>
+            <button data-status="Pending">Pending</button>
+            <button data-status="Done">Done</button>
+        </div>
+
+        <div class="complaint-layout">
+            <div id="complaintList"></div>
+            <div class="detail-box" id="complaintDetail" style="margin-top:0">
+                <p class="empty">Select a complaint to view it.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-client.js"></script>
+    <script src="admin-common.js"></script>
+    <script src="admin-complaints.js"></script>
+</body>
+</html>
