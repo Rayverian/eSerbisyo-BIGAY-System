@@ -2,6 +2,29 @@ let allRequests = [];
 let allComplaints = [];
 let days = 7; // how many days back we are counting
 
+// ---------- helper functions ----------
+function safe(text) {
+  if (!text) return "";
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function formatDate(dateString) {
+  if (!dateString) return "No date";
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) return "Invalid date";
+  return date.toLocaleDateString("en-PH", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
 // ---------- get everything from supabase ----------
 async function loadDashboard() {
   const reqResult = await db.from("document_requests").select("*");
@@ -11,13 +34,13 @@ async function loadDashboard() {
     alert("Could not load requests: " + reqResult.error.message);
     return;
   }
-   allRequests = reqResult.data;
+  allRequests = reqResult.data || [];
 
   if (compResult.error) {
     console.log("Complaints not loaded: " + compResult.error.message);
     allComplaints = [];
   } else {
-    allComplaints = compResult.data;
+    allComplaints = compResult.data || [];
   }
 
   showDashboard();
@@ -25,72 +48,82 @@ async function loadDashboard() {
 
 // ---------- put the numbers on the page ----------
 function showDashboard() {
-  // only count the ones inside the selected number of days
   const cutoff = new Date();
   cutoff.setDate(cutoff.getDate() - days);
 
+  // filter requests within selected days (if days is 0 or NaN, show all time)
   const requests = [];
   for (let i = 0; i < allRequests.length; i++) {
-    if (new Date(allRequests[i].created_at) >= cutoff) {
+    const created = allRequests[i].created_at ? new Date(allRequests[i].created_at) : new Date();
+    if (!days || days <= 0 || created >= cutoff) {
       requests.push(allRequests[i]);
     }
   }
 
+  // filter complaints within selected days
   const complaints = [];
   for (let i = 0; i < allComplaints.length; i++) {
-    if (new Date(allComplaints[i].created_at) >= cutoff) {
+    const created = allComplaints[i].created_at ? new Date(allComplaints[i].created_at) : new Date();
+    if (!days || days <= 0 || created >= cutoff) {
       complaints.push(allComplaints[i]);
     }
   }
 
-  // count the statuses
+  // count request statuses (case-insensitive, defaults null/empty to "pending")
   let pending = 0;
   let completed = 0;
   for (let i = 0; i < requests.length; i++) {
-    if (requests[i].status === "Pending") {
+    const status = (requests[i].status || "pending").trim().toLowerCase();
+    if (status === "pending") {
       pending++;
-    }
-    if (requests[i].status === "Completed") {
+    } else if (status === "completed") {
       completed++;
     }
   }
 
+  // count complaint statuses (case-insensitive)
   let openComplaints = 0;
   let doneComplaints = 0;
   for (let i = 0; i < complaints.length; i++) {
-    if (complaints[i].status === "Pending") {
+    const status = (complaints[i].status || "pending").trim().toLowerCase();
+    if (status === "pending") {
       openComplaints++;
     } else {
       doneComplaints++;
     }
   }
 
+  // update summary cards
   document.getElementById("totalRequests").textContent = requests.length;
   document.getElementById("pendingRequests").textContent = pending;
   document.getElementById("openComplaints").textContent = openComplaints;
   document.getElementById("completedRequests").textContent = completed;
 
-  // requests per document type (same names as the dropdown in the form)
+  // requests per document type (matches both full and short names)
   const docTypes = [
-    "Barangay Clearance",
-    "Barangay Certificate of Indigency",
-    "Barangay Certificate of Residency",
-    "Endorsement Letter",
-    "First Time Job Seeker"
+    { label: "Barangay Clearance", match: ["barangay clearance"] },
+    { label: "Certificate of Indigency", match: ["barangay certificate of indigency", "certificate of indigency"] },
+    { label: "Certificate of Residency", match: ["barangay certificate of residency", "certificate of residency"] },
+    { label: "Endorsement Letter", match: ["endorsement letter"] },
+    { label: "Job Seeker Application", match: ["first time job seeker", "job seeker application"] }
   ];
 
+  const docLabels = [];
   const docCounts = [];
+
   for (let i = 0; i < docTypes.length; i++) {
+    docLabels.push(docTypes[i].label);
     let n = 0;
     for (let j = 0; j < requests.length; j++) {
-      if (requests[j].document_type === docTypes[i]) {
+      const reqDoc = (requests[j].document_type || "").trim().toLowerCase();
+      if (docTypes[i].match.includes(reqDoc)) {
         n++;
       }
     }
     docCounts.push(n);
   }
 
-  document.getElementById("docBars").innerHTML = makeBars(docTypes, docCounts);
+  document.getElementById("docBars").innerHTML = makeBars(docLabels, docCounts);
   document.getElementById("complaintBars").innerHTML = makeBars(
     ["Pending", "Done"],
     [openComplaints, doneComplaints]
@@ -99,7 +132,7 @@ function showDashboard() {
   showActivity(requests, complaints);
 }
 
-// makes the bars (labels and numbers are arrays)
+// ---------- makes the horizontal bar charts ----------
 function makeBars(labels, numbers) {
   let biggest = 0;
   for (let i = 0; i < numbers.length; i++) {
@@ -148,7 +181,7 @@ function showActivity(requests, complaints) {
 
   // newest first
   items.sort(function (a, b) {
-    return new Date(b.date) - new Date(a.date);
+    return new Date(b.date || 0) - new Date(a.date || 0);
   });
 
   const list = document.getElementById("activityList");
