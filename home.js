@@ -1,85 +1,514 @@
-document.getElementById("complain").addEventListener("click", () => {
-  window.location.href = "complaint.html";
-});
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-document.getElementById("services").addEventListener("click", () => {
-  window.location.href = "services.html";
-});
+.navigation{
+  background-color: #0A1128;
+  min-height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px clamp(20px, 5vw, 60px);
+  border-bottom: 1px solid #034078;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
 
-document.getElementById("request").addEventListener("click", () => {
-  window.location.href = "docreq.html";
-});
+.logo {
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #FEFCFB;
+    white-space: nowrap;
+    padding-left: 25px;
+}
 
-document.getElementById("dashboard").addEventListener("click", () => {
-  window.location.href = "admin-login.html";
-});
+.logo span {
+    color: #87BFFF;
+}
 
-document.addEventListener("DOMContentLoaded", () => {
-  const track = document.getElementById("carouselTrack");
-  const slides = Array.from(track.children);
-  const dotsContainer = document.getElementById("carouselDots");
-  
-  let currentIndex = 0;
-  let autoSlideInterval = null;
-  const slideIntervalTime = 5000; // 5 seconds
+.buttons{
+    display:flex;
+    gap: clamp(16px, 2.5vw, 32px);
+    align-items: center;
+}
 
-  // 1. Create navigation dots dynamically
-  slides.forEach((_, index) => {
-    const dot = document.createElement("button");
-    dot.classList.add("dot");
-    if (index === 0) dot.classList.add("active");
-    dot.addEventListener("click", () => goToSlide(index));
-    dotsContainer.appendChild(dot);
-  });
+.orange,
+.blue,
+#home,
+#complain,
+#request,
+#services,
+#dashboard {
+  background: none;
+  border: none;
+  font-family: 'Jockey One', sans-serif;
+  font-size: clamp(10px, 1.8vw, 15px);
+  letter-spacing: 0.8px;
+  padding: 6px 4px;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.25s ease;
+}
 
-  const dots = Array.from(dotsContainer.children);
+.orange,
+#home {
+  color: #87BFFF;
+}
 
-  // 2. Move to specific slide index
-  function goToSlide(index) {
-    currentIndex = index;
-    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+.orange::after,
+#home::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2.5px;
+  background-color: #87BFFF;
+  border-radius: 2px;
+}
+
+.blue,
+#complain,
+#request,
+#services,
+#dashboard {
+  color: rgba(254, 252, 251, 0.85);
+}
+
+.blue:hover,
+#complain:hover,
+#request:hover,
+#services:hover,
+#dashboard:hover {
+  color: #87BFFF;
+}
+
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 85px;
+  }
+
+  .navigation {
+    justify-content: center;
+    padding: 14px;
+  }
+
+  .buttons {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 530px;
+    background: rgba(10, 17, 40, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(135, 191, 255, 0.35);
+    border-radius: 50px;
+    justify-content: space-evenly;
+    padding: 10px 12px;
+    gap: 4px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+  }
+
+  .buttons button {
+    font-size: 14px;
+    padding: 4px 6px;
+  }
+}
+
+.overview {
+    position: relative;
+    min-height: 300px;
+    overflow: hidden;
+    flex-wrap: wrap;
+    background-color: #EEF5FC;
     
-    // Update active dot status
-    dots.forEach((dot, i) => {
-      dot.classList.toggle("active", i === currentIndex);
-    });
+}
+
+.overviewContent {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    margin-top: 60px;
+    z-index: 2;
+    
+}
+
+.overview::after {
+  content: "";
+  position: absolute;
+  inset: 90% 0 0;
+  background: linear-gradient(transparent, #001F54);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.overviewContent h1 {
+    font-size: clamp(5rem, 15vw, 11rem);
+    color: #02245e;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family:'Times New Roman', Times, serif;
+    text-shadow: 0 2px 30px rgba(196, 176, 97, 0.95);
+}
+
+.overviewContent h2 {
+    font-size: clamp(1.1rem, 3vw, 1.875rem);
+    color: #2667FF;
+    background-color: rgba(237, 232, 215, 0.85);
+    padding: 6px 20px;
+    border-radius: 20px;
+    margin: 0 auto;
+    width: fit-content;
+    text-align: center;
+    font-family:'Times New Roman', Times, serif;
+}
+
+.brgyhall {
+    display: block;
+    width: 100%;
+    height: 600px;
+    object-fit:cover;
+    margin: 0;
+    opacity: 0.5;
+}
+
+.announcements-carousel {
+  position: relative;
+  max-width: 80%;
+  max-height: 20%;
+  margin: 20px auto;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #DCEBFA;
+  color: #0A1128;
+  object-position: center;
+  
+}
+
+.carousel-viewport {
+  position: relative;
+  overflow: hidden;
+  width: auto;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+  border: none;
+  border-radius: 50%;
+  padding: 10px 14px;
+  color: #FEFCFB;
+  background: rgba(0, 31, 84, 0.8);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.carousel-arrow:hover {
+  background: #2667FF;
+}
+
+.carousel-arrow.prev {
+  left: 10px;
+}
+
+.carousel-arrow.next {
+  right: 10px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+  text-align: center;
+}
+
+.announcement-slide {
+  min-width: 100%;
+  box-sizing: border-box;
+  padding: 30px 50px;
+  background-color: #DCEBFA;
+  background: linear-gradient(to bottom, #DCEBFA 0%, #EEF5FC 100%);
+  
+}
+
+.badge {
+  display: block;
+  width: fit-content;
+   margin: 0 auto 15px;
+  background-color: #001F54;
+  color: #FEFCFB;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+
+.announcement-slide h3 {
+  margin: 0 0 10px 0;
+  font-size: 25px;
+  color: #0A1128;
+  padding-top: 10px;
+}
+
+.announcement-slide p {
+  margin: 0;
+  color: #034078;
+  line-height: 1.5;
+  font-size: 20px;
+  padding-top: 60px;
+}
+
+/* Dots Styling */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding-bottom: 15px;
+  background-color: #EEF5FC;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ADD7F6;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dot.active {
+  background-color: #2667FF;
+  transform: scale(1.3);
+}
+
+.emergencyNos {
+    background-color: #EEF5FC;
+    padding: 40px 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.emergencyNos h3 {
+  display: inline-block;
+  background-color: #2667FF;
+  color: #FEFCFB;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 6px 14px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin: 0 auto 35px;
+  text-align: center;
+}
+
+.emergencyList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    max-width: 1010px;
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+
+    
+}
+
+.emergencyList h4 {
+  color: #0A1128;
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  margin: 0 0 8px 0;
+  font-weight: 900;  
+}
+
+.emergencyList p {
+  margin: 0;
+  color: #960200;
+  line-height: 1.5;
+  font-size:clamp(1.5rem, 3vw, 2rem);
+
+}
+
+.emergency {
+  background-color: #FEFCFB;
+  border-radius: 12px;
+  padding: 25px 20px;
+  width: 300px;
+  justify-self: center;
+  display: flex;
+  flex: 1 1 280px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ADD7F6;
+  
+}
+
+.emergency img {
+  width: 130px;
+  height: 130px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  object-fit: cover;
+
+}
+
+.history {
+    background-color: #EEF5FC;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+
+    
+}
+
+
+
+.history h3 {
+  font-size: 30px;
+  font-weight: bold;
+  color: #FEFCFB;
+  padding: 4px;
+  background-color: #2667FF;
+  display: inline-block;
+  border-radius: 4px;
+  margin-bottom: 10px;
+
+}
+
+.history-content p {
+  font-size: 20px;
+  color: #271e62;
+  text-align: justify;
+  line-height: 2;
+  border-radius: 4px;
+  padding: 4px 8px;
+  flex: 1;
+  margin: 0;
+  
+ 
+}
+
+.history-content {
+  border: 1px solid #999;
+  border-radius: 6px;
+  padding: 15px;
+  text-align: justify;
+  line-height: 1.6;
+  overflow: auto;
+  background-color: #deeefd;
+}
+
+.history-content img {
+  float: left;          /* Allows text to wrap around the right and bottom */
+  width: 55%;           /* Adjust width as needed (e.g., 50% or 300px) */
+  max-width: 350px;
+  margin-right: 18px;   /* Space between image right edge and text */
+  margin-bottom: 10px;  /* Space between image bottom edge and wrapped text */
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .history-content {
+    flex-direction: column;
   }
 
-  // 3. Move to next slide automatically
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
-    goToSlide(currentIndex);
+  .history-content img {
+    width: 100%;
   }
+}
 
-  // 4. Timer control (Start/Stop)
-  function startAutoSlide() {
-    if (!autoSlideInterval) {
-      autoSlideInterval = setInterval(nextSlide, slideIntervalTime);
+.brgyCouncil {
+    background-color: #EEF5FC;
+    padding-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    
+}
+
+.council-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.brgyCouncil h3 {
+  margin: 0 auto 12px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #FEFCFB;
+  background-color: #2667FF;
+  display: block;
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.SBmembers {
+  text-align: center;
+  color: #0A1128;
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid #271e62;
+  padding: 15px 0px 25px;
+  flex: 1;
+  background-color: #deeefd;
+
+}
+
+.council-member h4 {
+  font-size: 20px;
+  margin-bottom: 0;
+  padding-top: 15px;
+  font-weight: bold;
+  color: #001F54;
+}
+
+.council-member p {
+  font-size: 18px;
+  margin-top: 0;
+  font-weight: normal;
+  color: #2667FF;
+  
+  
+}
+
+.SKmembers {
+  text-align: center;
+  color: #0A1128;
+  font-weight: bold;
+  font-size: 20px;
+  border: 1px solid #271e62;
+  padding: 15px 0px 25px;
+  flex: 1;
+  background-color: #deeefd;
+
+
+}
+
+@media (max-width: 768px) {
+    .brgyCouncil {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px 20px;
     }
-  }
-
-  function stopAutoSlide() {
-    clearInterval(autoSlideInterval);
-    autoSlideInterval = null;
-  }
-
-  // 5. Pause auto-slide when hovering over the carousel
-  const carouselElement = document.querySelector(".announcements-carousel");
-  carouselElement.addEventListener("mouseenter", stopAutoSlide);
-  carouselElement.addEventListener("mouseleave", startAutoSlide);
-
-  document.getElementById("prevAnnouncement").addEventListener("click", () => {
-    goToSlide((currentIndex - 1 + slides.length) % slides.length);
-    stopAutoSlide();
-    startAutoSlide();
-  });
-
-  document.getElementById("nextAnnouncement").addEventListener("click", () => {
-    nextSlide();
-    stopAutoSlide();
-    startAutoSlide();
-  });
-
-  // Start initial rotation
-  startAutoSlide();
-});
+}
