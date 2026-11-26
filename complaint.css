@@ -528,3 +528,7 @@ fieldset {
 
 
 
+
+.form-group[hidden] {
+    display: none;
+}
