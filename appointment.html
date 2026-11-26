@@ -1,157 +1,148 @@
 <!DOCTYPE html>
-<html>
-    
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="appointment.css">
-       <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        <title> Document Request </title>
+        <title>Document Request</title>
     </head>
 
     <body>
-        
-         <div class="navigation">
-  <h2 class="logo">eSerbisyo <span>BIGAY</span> System</h2>
-                <div class="buttons">
-                    <button id="home">HOME</button>
-                    <button id="complain">COMPLAIN</button>
-                    <button id="request">REQUEST</button>
-                    <button id="services">SERVICES</button>
-                    <button id="dashboard">DASHBOARD</button>
-                </div>
+        <div class="navigation">
+            <h2 class="logo">eSerbisyo <span>BIGAY</span> System</h2>
+            <div class="buttons">
+                <button id="home">HOME</button>
+                <button id="complain">COMPLAIN</button>
+                <button id="request">REQUEST</button>
+                <button id="services">SERVICES</button>
+                <button id="dashboard">DASHBOARD</button>
+            </div>
         </div>
-
 
         <div class="content_container">
             <div class="content2">
-            <h2>ONLINE PORTAL </h2>
-            <h1><b>Application and Appointment Form</b></h1>
-            <p>Fill in accurate personal information and schedule your claiming date.<br>
-                Please check the informations before submitting your application.</p>
-        </div>
-
-        <div class="AAform">
-            <form class="personal-info" id="appointmentForm">
-    <fieldset>
-        <h2>Personal Information</h2>
-        <hr>
-
-
-        <div class="form-group">
-            <label for="fullname">FULL NAME (FIRST NAME, MIDDLE NAME, LAST NAME)</label>
-            <input type="text" id="fullname" required>
-        </div>
-
-        <!-- Row 1: Age, Date of Birth, Contact Number -->
-        <div class="form-row">
-            <div class="form-group">
-                <label for="age">AGE</label>
-                <input type="number" id="age" required>
-            </div>
-            <div class="form-group">
-                <label for="dob">DATE OF BIRTH</label>
-                <input type="date" id="dob" required>
-            </div>
-            <div class="form-group">
-                <label for="contact">CONTACT NUMBER</label>
-                <input type="tel" id="contact" required>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="email_add">EMAIL ADDRESS</label>
-                <input type="email" id="email_add" required>
+                <h2>ONLINE PORTAL</h2>
+                <h1><b>Application and Appointment Form</b></h1>
+                <p>Fill in accurate personal information and schedule your claiming date.<br>
+                    Please check the informations before submitting your application.</p>
             </div>
 
-            <div class="form-group">
-                <label for="sitio">SITIO</label>
-                <select id="sitio" required>
-                    <option value="" disabled selected>Select Sitio</option>
-                    <option value="Silangan 1">Silangan 1</option>
-                    <option value="Silangan 2">Silangan 2</option>
-                    <option value="Hulong Silangan">Hulong Silangan</option>
-                    <option value="Hulong Bayanan">Hulong Bayanan</option>
-                    <option value="Bayanan">Bayanan</option>
-                    <option value="Lilinggiwan">Lilinggiwan</option>
-                    <option value="Lilinggiwan 2">Lilinggiwan 2</option>
-                </select>
+            <div class="AAform">
+                <form class="personal-info" id="appointmentForm">
+                    <fieldset>
+                        <h2>Personal Information</h2>
+                        <hr>
+
+                        <div class="form-group">
+                            <label for="fullname">FULL NAME (FIRST NAME, MIDDLE NAME, LAST NAME)</label>
+                            <input type="text" id="fullname" required>
+                        </div>
+
+                        <!-- Row 1: Age, Date of Birth, Contact Number -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="age">AGE</label>
+                                <input type="number" id="age" min="1" max="130" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dob">DATE OF BIRTH</label>
+                                <input type="date" id="dob" min="1900-01-01" max="2026-12-31" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact">CONTACT NUMBER</label>
+                                <input type="tel" id="contact" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email_add">EMAIL ADDRESS</label>
+                                <input type="email" id="email_add" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sitio">SITIO</label>
+                                <select id="sitio" required>
+                                    <option value="" disabled selected>Select Sitio</option>
+                                    <option value="Silangan 1">Silangan 1</option>
+                                    <option value="Silangan 2">Silangan 2</option>
+                                    <option value="Hulong Silangan">Hulong Silangan</option>
+                                    <option value="Hulong Bayanan">Hulong Bayanan</option>
+                                    <option value="Bayanan">Bayanan</option>
+                                    <option value="Lilinggiwan">Lilinggiwan</option>
+                                    <option value="Lilinggiwan 2">Lilinggiwan 2</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="status">CIVIL STATUS</label>
+                                <select id="status" required>
+                                    <option value="" disabled selected>Select Status</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Widow/Widower">Widow/Widower</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h2>Document Request Details</h2><hr> 
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="document">DOCUMENT TYPE</label>
+                                <select id="document" required>
+                                    <option value="" disabled selected>Select Document Needed</option>
+                                    <option value="Barangay Clearance">Barangay Clearance</option>
+                                    <option value="Barangay Certificate of Indigency">Barangay Certificate of Indigency</option>
+                                    <option value="Barangay Certificate of Residency">Barangay Certificate of Residency</option>
+                                    <option value="Endorsement Letter">Endorsement Letter</option>
+                                    <option value="First Time Job Seeker">First Time Job Seeker</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="purpose">PURPOSE OF REQUEST</label>
+                                <select id="purpose" required>
+                                    <option value="" disabled selected>Select Purpose</option>
+                                    <option value="Local Employment requirements">Local Employment requirements</option>
+                                    <option value="Valid ID Application(e.g. SSS, Passport)">Valid ID Application(e.g. SSS, Passport)</option>
+                                    <option value="Bank Account Opening">Bank Account Opening</option>
+                                    <option value="Scholarship/Educational Assistance">Scholarship/Educational Assistance</option>
+                                    <option value="Medical/Financial Assistance">Medical/Financial Assistance</option>
+                                    <option value="Business Permit Registration">Business Permit Registration</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="validId">UPLOAD VALID ID</label>
+                            <input type="file" id="validId" accept="image/png, image/jpeg, image/webp, application/pdf" required>
+                        </div>
+
+                        <h2>Appointment Schedule</h2><hr>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">CLAIMING DATE</label>
+                                <input type="date" id="date" min="2026-01-01" max="2027-12-31" required>
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="time">TIME SLOT</label>
+                                <input type="time" id="time" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-image" id="submitBtn"> 
+                            <img src="images/submit.png" alt="SUBMIT" class="button-icon">
+                            <span>SUBMIT REQUEST</span>
+                        </button>
+                    </fieldset>
+                </form>
             </div>
-
-            <div class="form-group">
-                <label for="status">CIVIL STATUS</label>
-                <select id="status" required>
-                    <option value="" disabled selected>Select Status</option>
-                    <option value="Single">Single</option>
-                    <option value="Married">Married</option>
-                    <option value="Widow/Widower">Widow/Widower</option>
-                </select>
-            </div>
-        </div>
-
-        
-            <h2>Document Request Details</h2><hr> 
-        <div class="form-row">
-            <div class="form-group">
-                <label for="document">DOCUMENT TYPE</label>
-                <select id="document" required>
-                    <option value="" disabled selected>Select Document Needed</option>
-                    <option value="Barangay Clearance">Barangay Clearance</option>
-                    <option value="Barangay Certificate of Indigency">Barangay Certificate of Indigency</option>
-                    <option value="Barangay Certificate of Residency">Barangay Certificate of Residency</option>
-                    <option value="Endorsement Letter">Endorsement Letter</option>
-                    <option value="First Time Job Seeker">First Time Job Seeker</option>
-                </select>
-            </div>
-
-             <div class="form-group">
-                <label for="purpose">PURPOSE OF REQUEST</label>
-                <select id="purpose" required>
-                    <option value="" disabled selected>Select Purpose</option>
-                    <option value="Local Employment requirements">Local Employment requirements</option>
-                    <option value="Valid ID Application(e.g. SSS, Passport)">Valid ID Application(e.g. SSS, Passport)</option>
-                    <option value="Bank Account Opening">Bank Account Opening</option>
-                    <option value="Scholarship/Educational Assistance">Scholarship/Educational Assistance</option>
-                    <option value="Medical/Financial Assistance">Medical/Financial Assistance</option>
-                    <option value="Business Permit Registration">Business Permit Registration</option>
-                </select>
-            </div>
-        </div>
-
-        <div class = "form-group">
-                <label for="validId">UPLOAD VALID ID</label>
-                <input type ="file" id="validId" required >
-            </div>
-
-           <h2>Appointment Schedule</h2><hr>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="date">CLAIMING DATE</label>
-                    <input type="date" id="date" required>
-                </div>
-            
-            <div class="form-group">
-                <label for="time">TIME SLOT</label>
-                <input type="time" id="time" required>
-            </div>
-            </div>
-        <button type="submit" class="btn-image" id="submitBtn" > 
-            <img src="images/submit.png" alt="SUBMIT" class="button-icon">
-            <span>SUBMIT REQUEST</span>
-        </button>
-
-    </fieldset>
-</form>
-
-        </div>
-
         </div> 
          
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script src="supabase-client.js"></script>
         <script src="appointment.js"></script>
     </body>
-
 </html>
