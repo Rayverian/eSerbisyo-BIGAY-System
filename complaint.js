@@ -26,7 +26,7 @@ const localToday = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
   .toISOString()
   .split('T')[0];
 const currentYear = now.getFullYear();
-const minYear = currentYear - 5;
+const minYear = 1900;
 
 dateInput.min = `${minYear}-01-01`;
 dateInput.max = localToday;
